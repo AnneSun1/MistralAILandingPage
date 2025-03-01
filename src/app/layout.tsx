@@ -1,9 +1,9 @@
 import type React from "react"
 import "@/styles/globals.css"
-import { Inter } from "next/font/google"
 import type { Metadata } from "next"
+import { Roboto } from 'next/font/google'
 
-const inter = Inter({ subsets: ["latin"] })
+const roboto = Roboto({  weight: ['400', '700'], subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Frontier AI | Mistral AI",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }

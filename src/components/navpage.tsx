@@ -24,22 +24,19 @@ export default function NavPage() {
       '': ['About us', 'Careers', 'News', 'Contact us']
     }
     return (
-        <>
-            <div className="overflow-y-auto">
-
+        <div className="z-50 h-[100vh] w-[100vw] bg-[#FFFAEA]">
             
             {/* Bottom nav */}
             <div className="sticky-bottom mx-3 mb-6 text-white">
                 <button className="bg-black px-3">
                     Try the API
-                    <PixelArrowRight/>
+                    <PixelArrowRight color="white" size={12}/>
                 </button>  
                 <button className="bg-black px-3">
                     Talk to sales
-                    <PixelArrowRight/>
+                    <PixelArrowRight color="white" size={12}/>
                 </button>  
             </div>
-            </div>
-        </>
+        </div>
     )
 }

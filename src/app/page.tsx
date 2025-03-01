@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image"
 import PixelArrowRight from "@/components/PixelArrowRight"
-import '@/styles/hero-bg.css'
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import '@/styles/globals.css'
 import PixelArrowRightBar from "@/components/PixelArrowRightBar"
 import { useRef, useState } from "react"
 import gsap from 'gsap';
@@ -48,8 +48,9 @@ export default function Home() {
     gsap.to(stillRef.current, {
       scrollTrigger: {
         trigger: scrollRef.current,
-        start: "top top",
-        end: "bottom 200",
+        start: "top center",
+        end: "bottom 75%",
+        markers: true,
         pin: stillRef.current,
         scrub: true,
         pinSpacing: false
@@ -99,7 +100,7 @@ export default function Home() {
   
   return (
 
-    <div className="min-h-screen flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col bg-[#FFF8E7]">
 
       <Navbar/>
 
@@ -116,7 +117,7 @@ export default function Home() {
           <div className="absolute inset-0" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-6xl md:text-7xl break-words">Frontier AI. In Your Hands.</h1>
+            <h1 className="text-6xl md:text-7xl break-words font-thin">Frontier AI. In Your Hands.</h1>
             <p className="text-xl md:text-2xl">Configurable AI for all builders.</p>
 
             <div className="max-w-xl mx-auto">
@@ -124,10 +125,10 @@ export default function Home() {
                 <input
                   type="text"
                   placeholder="Talk to le Chat"
-                  className="w-full h-12 pl-4 pr-12 text-black rounded-md"
+                  className="focus:outline-none text-sm w-full h-12 px-6 text-black rounded-md bg-[#FFFAEA]"
                 />
-                <button className="absolute right-1 top-1 bottom-1 px-3 bg-orange-600 hover:bg-orange-700 text-white rounded-md">
-                <PixelArrowRight color={"white"} size={12}/>
+                <button className="absolute right-1 top-1 bottom-1 pl-2 pr-3 bg-orange-600 hover:bg-orange-700 text-white rounded-md">
+                  <PixelArrowRight color={"white"} size={15}/>
                 </button>
               </div>
             </div>
@@ -140,7 +141,7 @@ export default function Home() {
                 </div>
                 
               </button>
-              <button className="px-4 py-2 border-b border-white text-white hover:text-[#FA5111] rounded-md flex group items-center">
+              <button className="px-4 py-2 border-b border-white text-white rounded-md flex group items-center">
                 APIs on la Plateforme
                 <div className="group-hover:text-[#FA5111]">
                 <PixelArrowRight color="#FA5111" size={12}/>
@@ -151,7 +152,7 @@ export default function Home() {
         </div>
 
          {/* App store bar */}
-         <div className="flex flex-wrap md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2]">
+         <div id="app-bar" className=" flex flex-wrap md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2]">
             <div className="md:col-start-1 md:row-start-1">
               <div className="h-6 bg-[#FF9900]" />
               <div className="h-6 bg-[#FF8533]" />
@@ -192,7 +193,7 @@ export default function Home() {
             {/* Scrolling Title */}
             {/* Hold still while we scroll until bottom or top scroll limit is met */}
               <div className="p-12" ref={stillRef}>
-                <h2 className="text-2xl md:text-5xl md:w-[300px]">Your AI future belongs in your hands.
+                <h2 className="text-2xl md:text-5xl md:w-[300px] ">Your AI future belongs in your hands.
                 <Image src="flag.svg" alt="flag" height={30} width={30}/>
                 </h2>
               </div>
@@ -240,11 +241,11 @@ export default function Home() {
               ref={imagesRef}
               >
 
-            <div className="m-8 flex flex-col space-y-8 py-8">
+            <div className="mx-12 flex flex-col items-center justify-center space-y-8 py-8">
 
               {/* Words belong in col flex, Image + word together in row flex */}
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image1Ref}>
-                <div className="space-y-8 md:w-[350px] p-5">
+              <div className="relative grid my-8 md:grid-cols-2 gap-4 items-center flex fex-wrap opacity-30" ref={image1Ref}>
+                <div className="space-y-8 md:w-[350px] pl-10">
                   <h2 className="text-4xl md:text-5xl">Get work done.</h2>
                   <p className="text-lg md:text-xl">
                     Your personalized multilingual AI assistant, with web search, uploads, and data connectors.
@@ -255,14 +256,14 @@ export default function Home() {
                   </button>
                 </div>
                 <Image 
-                className="m-4 w-5/6 sm:w-5/6"
+                className="mr-4 my-4 w-5/6 sm:w-5/6"
                     src="/mistral_card_img1.webp"
                     alt="Mistral Card Image 1"
                     width={500}
                     height={500}
                   />
               </div>
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image2Ref}>
+              <div className="relative grid my-8 md:grid-cols-2 gap-4 items-center flex fex-wrap opacity-30" ref={image2Ref}>
                 <div className="space-y-8 md:w-[350px] p-5">
                   <h2 className="text-4xl md:text-5xl">Code faster.</h2>
                   <p className="text-lg md:text-xl">
@@ -282,7 +283,7 @@ export default function Home() {
                     />
               </div>
 
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image3Ref}>
+              <div className="relative grid my-8 md:grid-cols-2 gap-4 items-center flex fex-wrap opacity-30" ref={image3Ref}>
                 <div className="space-y-8 md:w-[350px] p-5">
                 <h2 className="text-4xl md:text-5xl">Build AI-powered apps.</h2>
                   <p className="text-lg md:text-xl">
@@ -319,7 +320,7 @@ export default function Home() {
           </section>
 
           {/* Careers */}
-          <section className="m-8 h-[475px] my-[75px] text-white flex flex-col justify-end"
+          <section className=" m-8 h-[475px] my-[75px] text-white flex flex-col justify-end"
             style={{
             backgroundImage: "url('mistral_career.webp')",
             backgroundSize: "cover",
@@ -328,11 +329,13 @@ export default function Home() {
             <div className="mx-[50px] mb-[40px]">
               <h1 className="mt-[50px] mb-[30px] text-5xl md:w-[400px]">Build the future of secure, private AI.</h1>
            
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-wrap">
               <h2 className="md:w-[400px]">Now seeking: Insatiably curious AI enthusiasts with an entrepreneurial spirit.</h2>
-              <button className="px-4 py-2 border-b border-white text-white rounded-md flex items-center">
+              <button className="pr-4 py-2 border-b border-white group text-white rounded-md flex items-center">
                 View open roles
+                <div className="group-hover:text-[#FA5111]">
                 <PixelArrowRight color="white" size={12}/>
+                </div>
               </button>
             </div>
             </div>
@@ -340,27 +343,33 @@ export default function Home() {
 
           {/* Next chapter */}
           <section >
-          <div className="relative z-10 bg-[#FFF8E7] pt-24 pb-32 text-center">
-          <div className="container mx-auto mb-[50px] px-4">
-            <h2 className="text-4xl md:text-6xl font-bold mb-12 max-w-4xl mx-auto">The next chapter of AI is yours.</h2>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="group inline-flex items-center text-lg font-medium hover:opacity-80">
+          <div className="relative z-10 bg-[#FFF8E7] text-center">
+          <div className="container mx-auto mb-[100px] px-4">
+            <h2 className="text-4xl md:text-6xl mb-12 max-w-4xl mx-auto">The next chapter of AI is yours.</h2>
+            <div className="flex flex-row flex-wrap gap-6 justify-center">
+              <button className="group pb-1 inline-flex group border-b border-black items-center text-lg font-medium hover:opacity-80">
                 Start building with Mistral AI
-                <PixelArrowRight color="white" size={12}/>
+                <div className="group-hover:text-[#FA5111]">
+                <PixelArrowRight color="#FA5111" size={12}/>
+                </div>
               </button>
-              <button className="group inline-flex items-center text-lg font-medium hover:opacity-80">
+              <button className="group pb-1  inline-flex group border-b border-black items-center text-lg font-medium hover:opacity-80">
                 Talk to an expert
+                <div className="group-hover:text-[#FA5111]">
                 <PixelArrowRight color="white" size={12}/>
+                </div>
               </button>
             </div>
 
-            {/* Pixelated Logo */}
-            <div className="mt-16 z-5 relative">
-              <Image src="/large_mistral_ani.gif" alt="gif" width={100} height={200} className="mx-auto" />
-            </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0">
-              <div className="h-12 bg-[#FFAD1A]" />
+          <div className="relative bottom-0 left-0 right-0">
+              {/* Pixelated Logo */}
+              
+              <div className="h-12 bg-[#FFAD1A] flex justify-center z-50">
+                <div className="relative bottom-0 flex items-center ">
+                <Image src="/large_mistral_ani.gif" alt="gif" width={200} height={200} className="object-contain " />
+              </div>
+              </div>
               <div className="h-12 bg-[#FF9900]" />
               <div className="h-12 bg-[#FF8533]" />
               <div className="h-12 bg-[#FF7033]" />
