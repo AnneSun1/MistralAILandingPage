@@ -11,7 +11,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#FFF8E7] border-t">
+    <footer className="bg-[#FFF0C2] border-t">
       <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(footerLinks).map(([category, links]) => (
