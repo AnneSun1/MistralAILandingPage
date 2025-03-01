@@ -23,9 +23,8 @@ export default function Home() {
   }
 
   const logosRef = useRef<HTMLDivElement>(null);
-  const stillRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Sliding animation
   useGSAP(() => {
     gsap.to(logosRef.current, {
       keyframes: [
@@ -40,22 +39,83 @@ export default function Home() {
     })
   })
 
+  const stillRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  // ScrollTrigger for the pinned words scrolling
   useGSAP(() => {
     gsap.to(stillRef.current, {
       scrollTrigger: {
         trigger: scrollRef.current,
-        markers: true,
         start: "top top",
         end: "bottom 200",
         pin: stillRef.current,
         scrub: true,
         pinSpacing: false
       }
-
     })
   }, [])
 
+  const imagesRef = useRef<HTMLDivElement>(null);
+  const image1Ref = useRef<HTMLDivElement>(null);
+  const image2Ref = useRef<HTMLDivElement>(null);
+  const image3Ref = useRef<HTMLDivElement>(null);
+  
+  // ScrollTimeline for the leChat stuff
+  useGSAP(() => {
+    gsap.to(image1Ref.current, {
+      scrollTrigger: {
+        trigger: image1Ref.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers:true
+      },
+      opacity: 1,
+      scale: 1.2
+    })
+    gsap.to(image2Ref.current, {
+      scrollTrigger: {
+        trigger: image2Ref.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers:true
+      },
+      opacity: 1,
+      scale: 1.2
+    })
+    gsap.to(image3Ref.current, {
+      scrollTrigger: {
+        trigger: image3Ref.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers:true
+      },
+      opacity: 1,
+      scale: 1.2
+    })
+
+
+    // let tl = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: imagesRef.current,
+    //     markers: true,
+    //     start: "top bottom",
+    //     end: "50% 50%",
+    //     scrub: true,
+    //   }
+    // })
+
+    // tl.from(image1Ref.current, { opacity: 0, scale: 0.5, duration: 1 })
+    // .from(image2Ref.current, { opacity: 0, scale: 0.5, duration: 1 }, '-=0.5') // Starts after 0.5s delay from elem1
+    // .from(image3Ref.current, { opacity: 0, scale: 0.5, duration: 1 }, '-=0.5'); // Starts after 0.5s delay from elem2
+
+  
+  })
+  
+  
   return (
 
     <div className="min-h-screen flex flex-col font-sans">
@@ -178,17 +238,19 @@ export default function Home() {
         </div>
 
           {/* Card section */}
-          <section className="relative bg-cover bg-center inset-0 bg-[#FFFAEA]"  
+          <div className="relative bg-cover bg-center inset-0 bg-[#FFFAEA]"  
             style={{
               backgroundImage: `
               linear-gradient(to right, #FFF0C2 1px, transparent 1px),
               linear-gradient(to bottom, #FFF0C2 1px, transparent 1px)`,
-              backgroundSize: "3rem 3rem",}}>
+              backgroundSize: "3rem 3rem",}}
+              ref={imagesRef}
+              >
 
             <div className="flex flex-col space-y-8 py-8">
 
               {/* Words belong in col flex, Image + word together in row flex */}
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap">
+              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image1Ref}>
                 <div className="space-y-8 md:w-[350px] p-5">
                   <h2 className="text-4xl md:text-5xl">Get work done.</h2>
                   <p className="text-lg md:text-xl">
@@ -207,7 +269,7 @@ export default function Home() {
                     height={500}
                   />
               </div>
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap">
+              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image2Ref}>
                 <div className="space-y-8 md:w-[350px] p-5">
                   <h2 className="text-4xl md:text-5xl">Code faster.</h2>
                   <p className="text-lg md:text-xl">
@@ -227,7 +289,7 @@ export default function Home() {
                     />
               </div>
 
-              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap">
+              <div className="relative grid my-8 md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto flex fex-wrap opacity-30" ref={image3Ref}>
                 <div className="space-y-8 md:w-[350px] p-5">
                 <h2 className="text-4xl md:text-5xl">Build AI-powered apps.</h2>
                   <p className="text-lg md:text-xl">
@@ -247,7 +309,7 @@ export default function Home() {
                   />
               </div>
             </div>
-          </section>
+          </div>
 
           {/* Announcement */}
           <section className="height-[300px] bg-[#FFF0C2] py-6 px-[30px] md:px-[50px]">
