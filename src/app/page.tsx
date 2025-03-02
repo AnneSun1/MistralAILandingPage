@@ -27,18 +27,17 @@ export default function Home() {
 
   // Sliding animation
   useGSAP(() => {
+    const logoWidth = logosRef.current?.scrollWidth || 0
     gsap.to(logosRef.current, {
-      keyframes: [
-        { x: 0, duration: 1 },
-        { x: '-20%', duration: 1 },
-        { x: '-40%', duration: 1 },
-        { x: '-60%', duration: 1 },
-        { x: '-80%', duration: 1 },
-        { x: '-100%', duration: 1 },
-      ],
-      repeat: -1
+      x: `-=${logoWidth / 2}`,
+      duration: 20,
+      ease: "linear",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => Number.parseFloat(x) % (logoWidth / 2)),
+      },
     })
-  })
+  }, [])
 
   const stillRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -50,7 +49,6 @@ export default function Home() {
         trigger: scrollRef.current,
         start: "top center",
         end: "bottom 75%",
-        markers: true,
         pin: stillRef.current,
         scrub: true,
         pinSpacing: false
@@ -152,7 +150,7 @@ export default function Home() {
         </div>
 
          {/* App store bar */}
-         <div id="app-bar" className=" flex flex-wrap md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2]">
+         <div id="app-bar" className=" flex md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2]">
             <div className="md:col-start-1 md:row-start-1">
               <div className="h-6 bg-[#FF9900]" />
               <div className="h-6 bg-[#FF8533]" />
@@ -169,22 +167,26 @@ export default function Home() {
               <div className="flex flex-row">
               <Image src='/applestore.svg' alt="apple" width={120} height={40} className="h-8 w-auto" />
               <Image src='/androidstore.svg' alt="android" width={120} height={40} className="h-8 w-auto" />
+              <div className="absolute bottom-0 right-0">
+              {/* <Image src='/Mistral_ani.gif' alt="gif" width={120} height={40} className="h-8 w-auto" /> */}
+            </div>
               </div>
-              <Image src='/Mistral_ani.gif' alt="gif" width={120} height={40} className="h-8 w-auto" />
+              
             </div>
           </div>
 
         {/* Partner Logos */}
         
-        <div className="m-8 flex justify-center items-center w-full" ref={logosRef}>
-            <div className="flex gap-12">
-              {logos.map((name, idx) => (
-                <Image key={idx} src={`/${name}.webp`} alt={name} width={120} height={40} className="h-8 w-auto" />
-              ))}
-              {logos.map((name, idx) => (
-                <Image key={idx} src={`/${name}.webp`} alt={name} width={120} height={40} className="h-8 w-auto" />
+        <div className="overflow-hidden">
+          <div className="py-12 relative">
+            <div className="flex" ref={logosRef}>
+              {[...logos, ...logos].map((name, idx) => (
+                <div key={idx} className="flex-shrink-0 mx-8">
+                  <Image src={`/${name}.webp`} alt={name} width={120} height={40} className="h-8 w-auto" />
+                </div>
               ))}
             </div>
+          </div>
         </div>
 
 
@@ -193,7 +195,7 @@ export default function Home() {
             {/* Scrolling Title */}
             {/* Hold still while we scroll until bottom or top scroll limit is met */}
               <div className="p-12" ref={stillRef}>
-                <h2 className="text-2xl md:text-5xl md:w-[300px] ">Your AI future belongs in your hands.
+                <h2 className="text-2xl md:text-5xl md:w-[300px] flex items-end">Your AI future belongs in your hands.
                 <Image src="flag.svg" alt="flag" height={30} width={30}/>
                 </h2>
               </div>
@@ -202,18 +204,22 @@ export default function Home() {
             <div>
             <div className="pt-6 border-b-2 border-t-2 border-[#fef1c3] space-y-8 pb-6 mr-8">
                 <h3 className="text-2xl md:text-3xl mr-10">Customizable, from pre-training to the real world.</h3>
-                <div className="flex gap-3">
-                  <OrangeBarArrow color={"#FA5111"} size={24}/>
-                  <p className="text-md mr-20">World class, benchmark-setting open models to customize, distill, fine-tune, iterate, and build on.</p>
+                <div className="relative">
+                <div className="absolute left-[-25px] top-1/2 transform -translate-y-1/2">
+                    <OrangeBarArrow color={"#FA5111"} size={40} />
                 </div>
+                <p className="text-md ml-[40px]">World class, benchmark-setting open models to customize, distill, fine-tune, iterate, and build on.</p>
+              </div>
               </div>
             {Object.entries(scrollMap).slice(1).map(([key, val]) => (
               <div key={key} className="pt-6 border-b-2 border-[#fef1c3] space-y-8 pb-6 mr-8">
-                <h3 className="text-2xl md:text-3xl mr-10">{key}</h3>
-                <div className="flex gap-3">
-                  <OrangeBarArrow color={"#FA5111"} size={24}/>
-                  <p className="text-md mr-20">{val}</p>
+                <h3 className="text-2xl md:text-3xl mr-[50px]">{key}</h3>
+                <div className="relative">
+                <div className="absolute left-[-25px] top-1/2 transform -translate-y-1/2">
+                    <OrangeBarArrow color={"#FA5111"} size={40} />
                 </div>
+                <p className="text-md ml-[40px]">{val}</p>
+            </div>
               </div>
             ))}
             </div>
@@ -221,14 +227,18 @@ export default function Home() {
             </div>
 
           {/* Scroll animation 2 */}
-          <div className="m-20 justify-center items-center w-full overflow-x-auto" ref={logosRef}>
-            <div className="text-6xl flex flex-row whitespace-nowrap"> 
-              <h1 className="overflow-x-scroll">One platform. Many uses. For all humans. </h1>
-              <Image src="/Mistral_square_logo.svg" alt="logo" height={100} width={100}/>
-              <h1>One platform. Many uses. For all humans. </h1>
-              <Image src="/Mistral_square_logo.svg" alt="logo" height={100} width={100}/>
+          {/* Text Banner */}
+        <div className="overflow-hidden mt-5">
+          <div className="py-12 relative">
+            <div className="flex items-center" ref={logosRef}>
+              {[1, 2].map((_, idx) => (
+                <div key={idx} className="flex items-center flex-shrink-0">
+                  <h1 className="text-6xl whitespace-nowrap mr-8">One platform. Many uses. For all humans.</h1>
+                  <Image src="/Mistral_Logo.svg" alt="logo" height={100} width={100} className="mx-8" />
+                </div>
+              ))}
             </div>
-            
+          </div>
         </div>
 
           {/* Card section */}
@@ -311,7 +321,7 @@ export default function Home() {
 
             <div className="mt-[50px] mb-[30px]">
               <h2 className="text-2xl md:w-[450px] md:text-3xl">Announcing the all new le Chate: Your AI Assistant for life and work.
-              <button className="bg-orange-600 text-white">
+              <button className="bg-orange-600 text-white ml-[10px] py-[5px] pr-[6px]">
                 <PixelArrowRightBar/>
               </button>
               </h2>

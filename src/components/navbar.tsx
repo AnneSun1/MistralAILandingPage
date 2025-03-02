@@ -12,35 +12,22 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [openNav, setOpenNav] = useState(false);
     const links = ["Products", "Solutions", "Research", "Resources", "Company"];
-    const menuItems = [[
-        'La Plateforme',
-        'AI tooling',
+    const links2 = [[{'La Plateforme': ['AI tooling',
         'Frontier models',
         'AI infrastructure',
-        'Pricing',
-        'Le Chat',
-        'Pricing'
-      ],[
-        'Use cases',
-        'By team',
-        'By industry',
-        'By capability',
-        'Services',
-        'Model customization',
-        'Value realization',
-        'Deployment'
-      ], ['Models', 'Latest research'],
-      [
-        'Customer stories',
-        'Developers',
-        'Documentation',
-        'API reference',
-        'Community',
-        'Cookbooks',
-        'Partners'
-      ],
-      ['About us', 'Careers', 'News', 'Contact us']
-    ]
+        'Pricing']}, {'Le Chat': 'Pricing'}], 
+        [{'Use cases':['By team',
+            'By industry',
+            'By capability']}, {'Services': ['Model customization',
+                'Value realization',
+                'Deployment']}], 
+        [{'': ['Models', 'Latest research']}], 
+        [{'Customer stories': []}, {'Developers':
+            ['Documentation',
+            'API reference',
+            'Community',
+            'Cookbooks']}, {'Partners': []}], [{'': ['About us', 'Careers', 'News', 'Contact us']}]]
+
     const [isMobile, setIsMobile] = useState<boolean>(false);
 
     useEffect(() => {
@@ -64,7 +51,6 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    // Get the hero section element
     const section = document.getElementById("app-bar")
 
     if (!section) return
@@ -80,15 +66,14 @@ export default function Navbar() {
       },
     )
 
-    // Start observing the hero section
     observer.observe(section)
 
-    // Clean up the observer when component unmounts
     return () => {
       observer.disconnect()
     }
   }, [])
     return ( 
+        <div>
         <header className={`fixed font-thin top-0 left-0 right-0 z-50 py-8 px-8  w-[100vw] h-max-[300px] 
         ${menuOpen? ' bg-white/50 backdrop-blur-lg': ''} ${scrolled? 'bg-[#FFFAEA]': 'bg-transparent' }`}>
         
@@ -98,7 +83,7 @@ export default function Navbar() {
           onMouseLeave={() => {
             setMenuOpen(false);
         }}>
-            <div className="flex items-center gap-8">
+            <div className="absolute top-8 left-8 items-center gap-8">
             <Link href="/" className="flex items-center ">
             {scrolled? 
             <Image src="/Mistral_Logo.png" alt="Logo" width={38} height={38} className="h-8 w-8" /> :
@@ -116,11 +101,11 @@ export default function Navbar() {
             <div className="">
                 {scrolled ? <Image src="/menu_24black.svg" alt="Logo" width={38} height={38} className="h-8 w-8" onClick= {()=> setOpenNav(true)}/> 
                 : ( <Image src="/menu_24.svg" alt="Logo" width={38} height={38} className="h-8 w-8" onClick= {()=> setOpenNav(true)}/>)}
-                {openNav ? <NavPage/> : null}
+                {openNav ? <NavPage navOpen={openNav} setNavOpen={setOpenNav}/> : null}
             </div>
             ) : (
             <div >
-            <div className={`flex items-center gap-8  ${scrolled? 'text-black': 'text-white'}`} >
+            <div className={`flex items-center justify-end w-screen items-end pr-[50px] gap-8  ${scrolled? 'text-black': 'text-white'}`} >
             <nav className="hidden md:flex gap-6" >
                 {links.map((link, idx) => (
                     <Link href="#" key={idx}
@@ -145,31 +130,53 @@ export default function Navbar() {
             </div>
 
         {menuOpen && (
-            <div className="flex flex-col w-full h-[250px] items-center justify-center" onMouseEnter={() => {setMenuOpen(true)}} 
+            <div className="flex items-center w-screen h-[200px] pr-[50px] pl-[250px] mt-5" onMouseEnter={() => {setMenuOpen(true)}} 
                 onMouseLeave={() => {setMenuOpen(false)}}>
-                    {menuItems[currIdx].map((link, _) => (
-                        <p key={_}>{link}</p>
-                    ))}
+            
+                <div className="flex flex-row gap-16 mb-3">
+                    {links2[currIdx].map((menuItem, menuIdx) => {
+                    return Object.entries(menuItem).map(([key, subItems]) => (
+                        <div key={menuIdx} className="pl-5">
+                        <h3 className="mb-[20px]">{key}</h3>
+                        <div>
+                        {Array.isArray(subItems) && subItems.length > 0 ? (
+                            subItems.map((subItem, subIdx) => (
+                            <div key={subIdx} className="mb-[20px] text-sm text-gray-600">
+                                {subItem}
+                            </div>
+                            ))
+                            
+                        ) : (
+                        null
+                        )}
+                        </div>
+                        </div>
+                    ));
+                    })}
+                </div>
+            
             </div>
         )}
             </div>
         )}
         </div>
-        {scrolled && (
-       <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 sm:w-80 md:w-96 lg:w-[500px]">
-            <div className="relative">
-                <input
-                    type="text"
-                    placeholder="Talk to le Chat"
-                    className="focus:outline-none text-sm w-full h-12 px-6 text-black rounded-md bg-white"
-                />
-                <button className="absolute right-2 top-2 bottom-2 pr-2 bg-orange-600 hover:bg-orange-700 text-white rounded-md">
-                    <PixelArrowRightBar />
-                </button>
-            </div>
-         </div>
-      )}
+        
         </header>
+        {scrolled && (
+            <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 sm:w-80 md:w-96 lg:w-[500px]">
+                 <div className="relative">
+                     <input
+                         type="text"
+                         placeholder="Talk to le Chat"
+                         className="focus:outline-none text-sm w-full h-12 px-6 text-black rounded-md bg-white"
+                     />
+                     <button className="absolute right-2 top-2 bottom-2 pr-2 bg-orange-600 hover:bg-orange-700 text-white rounded-md">
+                         <PixelArrowRightBar />
+                     </button>
+                 </div>
+              </div>
+           )}
+           </div>
     )
 }
 
