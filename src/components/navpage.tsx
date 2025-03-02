@@ -57,7 +57,7 @@ const NavPage: React.FC<NavPageProps> = ({ navOpen, setNavOpen }) => {
                 <div className="space-y-4 my-4">
                     {links2[idx].map((menuItem, menuIdx) => {
                     return Object.entries(menuItem).map(([key, subItems]) => (
-                        <div key={menuIdx} className="pl-5 space-y-4">
+                        <div key={subItems} className="pl-5 space-y-4">
                         <h3 className="px-4">{key}</h3>
                         {Array.isArray(subItems) && subItems.length > 0 ? (
                             subItems.map((subItem, subIdx) => (
