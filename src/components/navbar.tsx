@@ -104,8 +104,8 @@ export default function Navbar() {
             <div className="absolute top-8 left-8 items-center gap-8">
             <Link href="/" className="flex items-center ">
             {scrolled? 
-            <Image src="/Mistral_Logo.png" alt="Logo" width={38} height={38} className="h-8 w-8" /> :
-            <Image src="/Mistral_square_Logo.svg" alt="Logo" width={38} height={38} className="h-8 w-8" /> 
+            <Image src="/Mistral_Logo.png" alt="Logo" width={30} height={30}  /> :
+            <Image src="/Mistral_square_Logo.svg" alt="Logo" width={30} height={30} /> 
             // logo height is 1.42x the width
             }
                 
@@ -116,7 +116,7 @@ export default function Navbar() {
             
             { isMobile ? (
                 // sidebar
-            <div className="">
+            <div className="absolute top-8 right-8">
                 {scrolled ? <Image src="/menu_24black.svg" alt="Logo" width={38} height={38} className="h-8 w-8" onClick= {()=> setOpenNav(true)}/> 
                 : ( <Image src="/menu_24.svg" alt="Logo" width={38} height={38} className="h-8 w-8" onClick= {()=> setOpenNav(true)}/>)}
                 {openNav ? <NavPage navOpen={openNav} setNavOpen={setOpenNav}/> : null}

@@ -24,7 +24,7 @@ export default function Home() {
   }
 
   const logosRef = useRef<HTMLDivElement>(null);
-
+  const logos1Ref = useRef<HTMLDivElement>(null);
   // Sliding animation
   useGSAP(() => {
     const logoWidth = logosRef.current?.scrollWidth || 0
@@ -35,6 +35,16 @@ export default function Home() {
       repeat: -1,
       modifiers: {
         x: gsap.utils.unitize((x) => Number.parseFloat(x) % (logoWidth / 2)),
+      },
+    })
+    const logo1Width = logos1Ref.current?.scrollWidth || 0
+    gsap.to(logos1Ref.current, {
+      x: `-=${logo1Width / 2}`,
+      duration: 30,
+      ease: "linear",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => Number.parseFloat(x) % (logo1Width / 2)),
       },
     })
   }, [])
@@ -111,8 +121,7 @@ export default function Home() {
             backgroundPosition: "center",
           }}
         >
-          {/* Remove or reduce the opacity of the gradient overlay since the image has natural gradation */}
-          <div className="absolute inset-0" />
+           <div className="absolute inset-0" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
             <h1 className="text-6xl md:text-7xl break-words font-thin">Frontier AI. In Your Hands.</h1>
@@ -150,21 +159,22 @@ export default function Home() {
         </div>
 
          {/* App store bar */}
-         <div id="app-bar" className=" flex md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2]">
-            <div className="md:col-start-1 md:row-start-1">
-              <div className="h-6 bg-[#FF9900]" />
-              <div className="h-6 bg-[#FF8533]" />
-              <div className="h-6 bg-[#FF7033]" />
-              <div className="h-6 bg-[#FF5C33]" />
-              <div className="h-6 bg-[#FF4733]" />
+         <div id="app-bar" className="justify-center md:justify-normal flex flex-wrap md:m-8 md:grid md:grid-cols-[130px_auto] bg-[#FFF0C2] m-5">
+            <div className="md:col-start-1 x-30 md:row-start-1">
+              <div className="h-3 md:h-6 w-full bg-[#FF9900]" />
+              <div className="h-3 md:h-6 w-full bg-[#FF8533]" />
+              <div className="h-3 md:h-6 w-full bg-[#FF7033]" />
+              <div className="h-3 md:h-6 w-full bg-[#FF5C33]" />
+              <div className="h-3 md:h-6 w-full bg-[#FF4733]" />
             </div>
-            <div className="md:col-start-1 md:row-start-1 z-10 flex justify-center items-center">
-              <Image src="/Mistral_square_logo.svg" alt="logo" width={70} height={70}/>
+            <div className="md:col-start-1 md:row-start-1 pt-4 z-10 flex md:transparent justify-center items-center">
+              <Image className="hidden md:block"  src="/Mistral_square_logo.svg" alt="logo" width={70} height={70}/>
+              <Image className="md:hidden block" src="/Mistral_Logo.png" alt="logo" width={70} height={70}/>
             </div>
             
-            <div className="flex px-5 justify-between items-center ">
+            <div className="flex px-5 m-5 justify-between items-center flex-wrap ">
               <p>Le Chat: Your AI assistant for life and work.</p>
-              <div className="flex flex-row">
+              <div className="flex flex-row items-center">
               <Image src='/applestore.svg' alt="apple" width={120} height={40} className="h-8 w-auto" />
               <Image src='/androidstore.svg' alt="android" width={120} height={40} className="h-8 w-auto" />
               <div className="absolute bottom-0 right-0">
@@ -179,7 +189,7 @@ export default function Home() {
         
         <div className="overflow-hidden">
           <div className="py-12 relative">
-            <div className="flex" ref={logosRef}>
+            <div className="flex" ref={logos1Ref}>
               {[...logos, ...logos].map((name, idx) => (
                 <div key={idx} className="flex-shrink-0 mx-8">
                   <Image src={`/${name}.webp`} alt={name} width={120} height={40} className="h-8 w-auto" />

@@ -27,7 +27,7 @@ const NavPage: React.FC<NavPageProps> = ({ navOpen, setNavOpen }) => {
     const [menuOpen, setMenuOpen] = useState(false)
     const [currIdx, setCurrIdx] = useState<number>(-1)
     return (
-        <div className="z-50 absolute top-0 left-0 w-screen h-screen border border-black h-full bg-[#FFFAEA]">
+        <div className="z-50 h-full fixed overflow-hidden inset-0 top-0 left-0 border border-black h-full bg-[#FFFAEA]">
             
             <div className="justify-end flex p-10" onClick={() => (setNavOpen(!navOpen))}>
                 <Image src='close.svg' height={24} width={24} alt="close"/>

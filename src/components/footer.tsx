@@ -32,7 +32,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8">
           <div className="flex items-center gap-4 mb-4 md:mb-0">
-            <Image src="/Mistral_Logo.png" alt="Logo" width={50} height={50} className="h-8 w-8" />
+            <Image src="/Mistral_Logo.png" alt="Logo" width={50} height={50}  />
             <span className="text-sm">Mistral AI © 2025</span>
           </div>
 
