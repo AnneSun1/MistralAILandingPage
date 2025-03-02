@@ -105,7 +105,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center ">
             {scrolled? 
             <Image src="/Mistral_Logo.png" alt="Logo" width={38} height={38} className="h-8 w-8" /> :
-            <Image src="/mistral_square_Logo.svg" alt="Logo" width={38} height={38} className="h-8 w-8" /> 
+            <Image src="/Mistral_square_Logo.svg" alt="Logo" width={38} height={38} className="h-8 w-8" /> 
             // logo height is 1.42x the width
             }
                 
