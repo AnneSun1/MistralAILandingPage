@@ -7,6 +7,7 @@ import PixelArrowRight from "./PixelArrowRight"
 import { inherits } from "util"
 import PixelArrowRightBar from "./PixelArrowRightBar"
 import NavPage from "./navpage"
+import { motion } from "framer-motion";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -72,6 +73,23 @@ export default function Navbar() {
       observer.disconnect()
     }
   }, [])
+  const containerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.3, 
+        ease: "easeOut", 
+        staggerChildren: 0.1 // Delays each child animation slightly
+      } 
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.2 } }
+  };
     return ( 
         <div>
         <header className={`fixed font-thin top-0 left-0 right-0 z-50 py-8 px-8  w-[100vw] h-max-[300px] 
@@ -130,32 +148,42 @@ export default function Navbar() {
             </div>
 
         {menuOpen && (
-            <div className="flex items-center w-screen h-[200px] pr-[50px] pl-[250px] mt-5" onMouseEnter={() => {setMenuOpen(true)}} 
-                onMouseLeave={() => {setMenuOpen(false)}}>
-            
-                <div className="flex flex-row gap-16 mb-3">
-                    {links2[currIdx].map((menuItem, menuIdx) => {
-                    return Object.entries(menuItem).map(([key, subItems]) => (
-                        <div key={menuIdx} className="pl-5">
-                        <h3 className="mb-[20px]">{key}</h3>
-                        <div>
-                        {Array.isArray(subItems) && subItems.length > 0 ? (
-                            subItems.map((subItem, subIdx) => (
-                            <div key={subIdx} className="mb-[20px] text-sm text-gray-600">
-                                {subItem}
-                            </div>
-                            ))
-                            
-                        ) : (
-                        null
-                        )}
-                        </div>
-                        </div>
-                    ));
-                    })}
-                </div>
-            
+             <motion.div
+             initial={{ opacity: 0, y: -20 }}
+             animate={{ opacity: 1, y: 0 }}
+             exit={{ opacity: 0, y: -20 }}
+             transition={{ duration: 0.3, ease: "easeOut" }}
+             className="flex items-center w-screen h-[200px] pr-[50px] pl-[250px] mt-5"
+             onMouseEnter={() => setMenuOpen(true)}
+             onMouseLeave={() => setMenuOpen(false)}
+           >
+
+<motion.div className="flex flex-row gap-16 mb-3" variants={containerVariants}>
+      {links2[currIdx].map((menuItem, menuIdx) => {
+        return Object.entries(menuItem).map(([key, subItems]) => (
+          <motion.div key={menuIdx} className="pl-5" variants={itemVariants}>
+            <motion.h3 className="mb-[20px]" variants={itemVariants}>
+              {key}
+            </motion.h3>
+            <div>
+              {Array.isArray(subItems) && subItems.length > 0 ? (
+                subItems.map((subItem, subIdx) => (
+                  <motion.div 
+                    key={subIdx} 
+                    className="mb-[20px] text-sm text-gray-600"
+                    variants={itemVariants}
+                  >
+                    {subItem}
+                  </motion.div>
+                ))
+              ) : null}
             </div>
+          </motion.div>
+        ));
+      })}
+    </motion.div>
+            
+                </motion.div>
         )}
             </div>
         )}

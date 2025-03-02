@@ -234,7 +234,7 @@ export default function Home() {
               {[1, 2].map((_, idx) => (
                 <div key={idx} className="flex items-center flex-shrink-0">
                   <h1 className="text-6xl whitespace-nowrap mr-8">One platform. Many uses. For all humans.</h1>
-                  <Image src="/Mistral_Logo.svg" alt="logo" height={100} width={100} className="mx-8" />
+                  <Image src="/Mistral_Logo.png" alt="logo" height={100} width={100} className="mx-8" />
                 </div>
               ))}
             </div>
